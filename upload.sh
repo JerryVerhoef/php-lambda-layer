@@ -2,13 +2,13 @@
 
 source regions.sh
 
-MD5SUM=$(md5 -q php71.zip)
-S3KEY="php71/${MD5SUM}"
+MD5SUM=$(md5 -q layer.zip)
+S3KEY="${LAYERNAME}/${MD5SUM}"
 
 for region in "${PHP71_REGIONS[@]}"; do
-  bucket_name="stackery-layers-${region}"
+  bucket_name="${BUCKET_PREFIX}-${region}"
 
-  echo "Uploading php71.zip to s3://${bucket_name}/${S3KEY}"
+  echo "Uploading layer.zip to s3://${bucket_name}/${S3KEY}"
 
-  aws --region $region s3 cp php71.zip "s3://${bucket_name}/${S3KEY}"
+  aws --region $region s3 cp layer.zip "s3://${bucket_name}/${S3KEY}"
 done
